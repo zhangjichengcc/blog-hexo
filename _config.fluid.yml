@@ -687,9 +687,9 @@ disqus:
 gitalk:
   clientID: 6eb8b20ae4e228048fb0
   clientSecret: 64fd7c61d1825490107b82cf2eeb3c463b44753e
-  repo:
-  owner:
-  admin: ['name']
+  repo: https://github.com/zhangjichengcc/blog-hexo
+  owner: zhangjicheng
+  admin: ['zhangjicheng']
   language: zh-CN
   labels: ['Gitalk']
   perPage: 10
