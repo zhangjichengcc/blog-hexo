@@ -1,0 +1,71 @@
+# @Author: zhangjicheng
+# @Date: 2021-10-28 18:20:12
+# @LastEditTime: 2021-10-28 18:20:14
+# @LastEditors: Please set LastEditors
+# @Description: In User Settings Edit
+# @FilePath: \blog-hexo\.github\workflows\main.js
+
+# main.yml
+name: deploy blog-hexo to aliyun
+# 触发方式
+on: 
+  push:
+    branches:
+      - main
+# 任务
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      REMOTE_HOST: 118.190.52.53
+      REMOTE_USER: root
+      TARGET_PATH: /opt/html/blog-hexo
+      TARGET_DIR: dist
+    # 步骤
+    steps:
+      # 切换分支
+      - name: Checkout
+        # 先将仓库的代码checkout到环境中，github提供了checkout的方法，只需要我们加上这条即可
+        uses: actions/checkout@master
+      # 下载 git submodule
+      - uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init --recursive
+      # 设置node版本
+      - name: use Node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      # 编译代码
+      - name: npm install and build
+        run: |
+          npm install -g hexo-cli
+          npm install
+          hexo generate
+          echo ${{ github.event.head_commit.message }}
+        env:
+          CI: true
+      # 上传代码到服务器
+      - name: upload code to Server
+        uses: easingthemes/ssh-deploy@v2.0.7
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.AL_ACCESS_TOKEN }}
+          ARGS: "-avz --delete"
+          SOURCE: "public"
+          REMOTE_HOST: ${{ env.REMOTE_HOST }}
+          REMOTE_USER: ${{ env.REMOTE_USER }}
+          TARGET: ${{ env.TARGET_PATH }}
+          EXCLUDE: "/.git/, /node_modules/"
+      # 链接服务器-备份原代码
+      - name: connect Server & backups
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.REMOTE_HOST }} # 下面三个配置与上一步类似
+          username: ${{ env.REMOTE_USER }}
+          key: ${{ secrets.AL_ACCESS_TOKEN }}
+          script: |
+            cd ${{ env.TARGET_PATH }}
+            mv ${{ env.TARGET_DIR }} ${{ env.TARGET_DIR }}_$(date "+%Y%m%d(%H%M%S)")
+            mv public ${{ env.TARGET_DIR }}
+
+      
