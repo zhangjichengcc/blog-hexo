@@ -512,7 +512,7 @@ post:
     # 作者，优先根据 front-matter 里 author 字段，其次是 hexo 配置中 author 值
     # Author, based on `author` field in front-matter, if not set, based on `author` value in hexo config
     author:
-      enable: true
+      enable: false
 
     # 文章日期，优先根据 front-matter 里 date 字段，其次是 md 文件日期
     # Post date, based on `date` field in front-matter, if not set, based on create date of .md file
@@ -687,9 +687,10 @@ disqus:
 gitalk:
   clientID: 6eb8b20ae4e228048fb0
   clientSecret: 64fd7c61d1825490107b82cf2eeb3c463b44753e
-  repo: https://github.com/zhangjichengcc/blog-hexo
-  owner: zhangjicheng
-  admin: ['zhangjicheng']
+  # 注意此处填写的是仓库名，而非路径，该仓库为issue仓库，用于存储留言，本项目共用代码仓库
+  repo: blog-hexo
+  owner: zhangjichengcc
+  admin: ['zhangjichengcc']
   language: zh-CN
   labels: ['Gitalk']
   perPage: 10
