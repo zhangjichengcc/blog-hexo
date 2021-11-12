@@ -385,9 +385,8 @@ footer:
   # 页脚第一行文字的 HTML，建议保留 Fluid 的链接，用于向更多人推广本主题
   # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
   content: '
-    <a href="https://github.com/zhangjichengcc/blog-hexo" target="_blank" rel="nofollow noopener"><span>github Repositories</span></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    Copyright © 2021  
+    <a href="https://github.com/zhangjichengcc/blog-hexo" target="_blank" rel="nofollow noopener"><span>Zhangjicheng</span></a>
   '
 
   # 展示网站的 PV、UV 统计数
@@ -408,15 +407,15 @@ footer:
   # 国内大陆服务器的备案信息
   # For Chinese mainland website policy, other areas keep disable
   beian:
-    enable: false
+    enable: true
     # ICP证号
-    icp_text: 京ICP证123456号
+    icp_text: 京ICP备2021021245号-1
     # 公安备案号，不填则只显示ICP
-    police_text: 京公网安备12345678号
+    # police_text: 京公网安备12345678号
     # 公安备案的编号，用于URL跳转查询
-    police_code: 12345678
-    # 公安备案的图片. 为空时不显示备案图片
-    police_icon: /images/police_beian.png
+    # police_code: 12345678
+    # # 公安备案的图片. 为空时不显示备案图片
+    # police_icon: /images/police_beian.png
 
 
 #---------------------------

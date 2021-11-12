@@ -9,5 +9,6 @@
   "MD033": false, // 文档中不允许使用HTML语句。
   "MD045": false, // 图片必须加alt
   "MD042": false,
-  "MD014": false
+  "MD014": false,
+  "MD037": false
 }
