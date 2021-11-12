@@ -56,11 +56,11 @@ npm install --save patch-package
 npx patch-package package-name
 ```
 
-![创建补丁文件](/images/posts/20211112_patch-package/step2.gif)
+![创建补丁文件](/images/posts/20211112_patch-package/step3.jpg)
 
 此时根目录会生成patches目录，存放补丁文件
 
-![补丁文件](/images/posts/20211112_patch-package/step2-2.jpg)
+![补丁文件](/images/posts/20211112_patch-package/step3-2.jpg)
 
 - 将补丁文件添加到版本管理，此步骤是为了保证补丁文件不会丢失
 
