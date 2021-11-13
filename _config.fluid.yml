@@ -51,7 +51,7 @@ code:
     # 实现高亮的库，对应下面的设置
     # Highlight library
     # Options: highlightjs | prismjs
-    lib: "highlightjs"
+    lib: "prismjs"
 
     highlightjs:
       # 在链接中挑选 style 填入
@@ -411,7 +411,7 @@ footer:
     # ICP证号
     icp_text: 京ICP备2021021245号-1
     # 公安备案号，不填则只显示ICP
-    # police_text: 京公网安备12345678号
+    # police_text: 
     # 公安备案的编号，用于URL跳转查询
     # police_code: 12345678
     # # 公安备案的图片. 为空时不显示备案图片
@@ -580,7 +580,7 @@ post:
   # Copyright, will be displayed at the end of each post
   copyright:
     enable: true
-    content: '本博客所有文章除特别声明外，均采为原创，转载请注明出处！'
+    content: '本博客所有文章除特别声明外，均为原创，转载请注明出处！'
 
   # 文章底部上一篇下一篇功能
   # Link to previous/next post

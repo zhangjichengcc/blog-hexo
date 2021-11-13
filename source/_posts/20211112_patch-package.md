@@ -12,6 +12,8 @@ tags:
 
 通过patch-package实现对node-module中的依赖包进行自定义变更打补丁，并完美兼容依赖版本升级重装.
 
+<!-- more -->
+
 ## 场景
 
 假设 packages 中的某一个依赖包【A】有 Bug，影响线上开发，应该怎么办？
