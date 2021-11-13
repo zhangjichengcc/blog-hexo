@@ -10,6 +10,8 @@ tags:
 	- node
 ---
 
+通过patch-package实现对node-module中的依赖包进行自定义变更打补丁，并完美兼容依赖版本升级重装.
+
 ## 场景
 
 假设 packages 中的某一个依赖包【A】有 Bug，影响线上开发，应该怎么办？
@@ -37,10 +39,14 @@ patch-package 会将你的修改进行记录，并记录到{workRoot}/patches/[p
 - 首先我们安装 patch-package
 
 ``` bash
-npm install --save patch-package
+$ npm install --save patch-package
 ```
 
 - 修改 `package.json` 添加 `postinstall` 命令，注意此步骤不可忽略！
+
+``` bash
+"postinstall": "patch-package",
+```
 
 ![添加scripts](/images/posts/20211112_patch-package/step1.jpg)
 
@@ -53,10 +59,10 @@ npm install --save patch-package
 - 执行 `patch-package` 创建补丁文件
 
 ``` bash
-npx patch-package package-name
+$ npx patch-package package-name
 ```
 
-![创建补丁文件](/images/posts/20211112_patch-package/step3.jpg)
+![创建补丁文件](/images/posts/20211112_patch-package/step3.gif)
 
 此时根目录会生成patches目录，存放补丁文件
 
@@ -71,9 +77,9 @@ npx patch-package package-name
 首先我们删除 `node_modules` 文件，然后重新 `install`，检查新的依赖包是否有我们的修改
 
 ``` bash
-rm -rf node_modules
+$ rm -rf node_modules
 
-npm install
+$ npm install
 ```
 
 ![测试结果](/images/posts/20211112_patch-package/test.jpg)

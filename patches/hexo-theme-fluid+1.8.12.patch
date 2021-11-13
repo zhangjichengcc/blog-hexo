@@ -1,0 +1,28 @@
+diff --git a/node_modules/hexo-theme-fluid/source/css/_pages/_base/inline.styl b/node_modules/hexo-theme-fluid/source/css/_pages/_base/inline.styl
+index cd618c6..374957d 100644
+--- a/node_modules/hexo-theme-fluid/source/css/_pages/_base/inline.styl
++++ b/node_modules/hexo-theme-fluid/source/css/_pages/_base/inline.styl
+@@ -15,6 +15,11 @@
+   .visible-mobile
+     display block
+ 
++  #board
++    border-radius 0 !important
++    box-shadow none !important
++    -webkit-box-shadow none !important
++
+ .nomargin-x
+   margin-left 0 !important
+   margin-right 0 !important
+@@ -28,6 +33,11 @@
+     padding-left 0 !important
+     padding-right 0 !important
+     
++  #board
++    border-radius 0 !important
++    box-shadow none !important
++    -webkit-box-shadow none !important
++
+ .flex-center
+   display -webkit-box
+   display -ms-flexbox
