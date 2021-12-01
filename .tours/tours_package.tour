@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tours_package",
+  "steps": [
+    {
+      "file": "package.json",
+      "description": ">> hexo server",
+      "line": 9,
+      "selection": {
+        "start": {
+          "line": 10,
+          "character": 5
+        },
+        "end": {
+          "line": 10,
+          "character": 35
+        }
+      }
+    }
+  ],
+  "ref": "main"
+}
