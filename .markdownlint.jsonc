@@ -10,5 +10,6 @@
   "MD045": false, // 图片必须加alt
   "MD042": false,
   "MD014": false,
-  "MD037": false
+  "MD037": false,
+  "MD028": false
 }
