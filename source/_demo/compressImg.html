@@ -1,0 +1,125 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-12-06 10:22:48
+ * @LastEditTime: 2021-12-06 10:42:24
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \Notec:\Users\hua-cloud\Desktop\新建文件夹 (2)\svg-1.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<canvas id="canvas"></canvas>
+	<img id="img" />
+	<input type="file" onchange="upload(this)" />
+	<script>
+		const canvas = document.getElementById("canvas");
+		const img = document.getElementById("img");
+
+		// 压缩方法
+		function compressBlob(canvas, type = "image/jpeg", quality) {
+			const dataURL = canvas.toDataURL(type, quality);
+			return new Promise((resolve, reject) => {
+				canvas.toBlob(function(blob) {
+					resolve({
+						dataURL,
+						blob,
+					});
+				}, type, quality);
+			})
+		}
+
+		async function compress(file, maxSize = 13, scale = 1, type = "image/jpeg") {
+			maxSize *= 1000;
+			const {
+				size: sourceSize,
+				name,
+			} = file;
+			let count = 1;
+			const blobUrl = URL.createObjectURL(file);
+			const tmpImg = new Image();
+			const canvas = document.createElement('canvas');
+			const context = canvas.getContext('2d');
+			tmpImg.src = blobUrl;
+			tmpImg.onload = function(e) {
+				const img = e.target;
+				URL.revokeObjectURL(file)
+				let {
+					width,
+					height,
+				} = img;
+				//如果图片大于四百万像素，计算压缩比并将大小压至400万以下
+				let quality = 1; // 图片质量
+				let maxQuality = 1, minQuality = 0;
+				if ((width * height / 4000000) > 1) {
+					scale = 4000000 / (width * height);
+					width *= scale;
+					heihgt *= scale;
+				}
+				canvas.width = width;
+				canvas.height = height;
+
+				context.fillStyle = "#fff"; // 填充底色，处理png
+				context.fillRect(0, 0, width, height);
+				context.drawImage(img, width, height);
+				function getBlob() {
+					return new Promise(function(resolve, reject) {
+						async function fn() {
+							quality = (maxQuality + minQuality) / 2;
+							let res = await compressBlob(canvas, 'image/jpeg', quality); // 只有jpeg格式图片支持图片质量压缩
+							const { blob, dataURL } = res;
+							const { size } = blob;
+							console.log(`第${count}次压缩:`, quality, size);
+							if(count <= 20 && size !== maxSize) {
+								count ++;
+								if (size > maxSize) {
+									maxQuality = quality;
+								} else {
+									minQuality = quality;
+								}
+								fn();
+							} else {
+								resolve(res);
+							}
+						}
+						fn();
+					})
+				}
+
+				getBlob().then(res => {
+					console.log(res.blob)
+					fetch(URL.createObjectURL(res.blob)).then(res => res.blob()).then(blob => {
+						console.log(blob);
+					});
+				})
+			}
+		}
+
+
+		function upload(e) {
+			[file] = e.files;
+			compress(file, 17, 0.5);
+			// const blobUrl = URL.createObjectURL(file);
+			// img.setAttribute('src', blobUrl);
+			// img.onload = function () {
+
+			// 	var ctx = canvas.getContext('2d');
+			// 	ctx.drawImage(img, 0, 0);
+			// 	console.log(canvas.toDataURL())
+			// 	canvas.toBlob(blob => {
+			// 		console.log(blob)
+			// 	})
+			// }
+		}
+	</script>
+</body>
+
+</html>
