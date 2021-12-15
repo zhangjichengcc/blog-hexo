@@ -11,13 +11,20 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="format-detection" content="email=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no,  viewport-fit=cover" />
 	<!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
 	<title>Document</title>
 </head>
 
 <body style="text-align:center">
+	<div style="display: inline-block; text-align:left;">
+		<p>压缩最大值：<input id="_maxSize" type="number" onchange="maxSizeHandleChange(this)" placeholder="设置压缩最大值">kb</p>
+		<p>缩放比例：<input id="_scale" type="number" onchange="scaleHandleChange(this)" placeholder="缩放比例"></p>
+	</div>
 	<p>TargetCanvas</p>
 	<canvas id="canvas" style="background-color: #eee"></canvas>
 	<p>TargetImage</p>
@@ -30,6 +37,28 @@
 		const canvas = document.getElementById("canvas");
 		const img = document.getElementById("img");
 		const targetImg = document.getElementById("targetImg");
+		let _maxSize = 10;
+		let _scale = 0.5;
+		const maxSizeDom = document.getElementById("_maxSize");
+		const scaleDom = document.getElementById("_scale");
+		updateForm();
+		function updateForm() {
+			maxSizeDom.setAttribute("value", _maxSize);
+			scaleDom.setAttribute("value", _scale);
+		}
+
+		function maxSizeHandleChange(e) {
+			const { value } = e;
+			_maxSize = Number(value);
+			updateForm();
+		}
+
+		function scaleHandleChange(e) {
+			const { value } = e;
+			_scale = Number(value);
+			updateForm();
+		}
+
 
 		// 压缩方法
 		function compressBlob(canvas, quality) {
@@ -174,7 +203,9 @@
 
 		function upload(e) {
 			[file] = e.files;
-			compress(file, 10, 0.5).then(res => {
+			e.value = '';
+			targetImg.removeAttribute('src');
+			compress(file, _maxSize, _scale).then(res => {
 				console.log(res);
 				targetImg.src = res.dataURL;
 				// const blobUrl = URL.createObjectURL(file);
