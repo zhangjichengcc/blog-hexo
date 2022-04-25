@@ -28,9 +28,9 @@ jobs:
         # 先将仓库的代码checkout到环境中，github提供了checkout的方法，只需要我们加上这条即可
         uses: actions/checkout@master
       # 下载 git submodule
-      - uses: srt32/git-actions@v0.0.3
-        with:
-          args: git submodule update --init --recursive
+      # - uses: srt32/git-actions@v0.0.3
+      #   with:
+      #     args: git submodule update --init --recursive
       # 设置node版本
       - name: use Node 12
         uses: actions/setup-node@v1
